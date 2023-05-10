@@ -1,9 +1,16 @@
 const path = require("path");
+const EslintWebpackPlugin = require("eslint-webpack-plugin");
+const HtemlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename:"static/js/[contenthash].js"
+    path: undefined
+  },
+  mode:"development",
+  devServer: {
+    host: "localhost",
+    open: true,
+    port:3000
   },
   module: {
     rules: [
@@ -40,10 +47,24 @@ module.exports = {
           }
         },
         generator: {
-          filename:"static/img/[contenthash][ext]"
+          filename:"static/img/[contenthash:10][ext]"
+        }
+      },
+      {
+        test: /\.(ttf|woff2?)/,
+        type: "asset/resource",
+        generator: {
+          filename:"static/font/[contenthash:12][ext]"
         }
       }
     ]
-  }
-  
+  },
+  plugins: [
+    new EslintWebpackPlugin({
+      context:path.resolve(__dirname,"../src")
+    }),
+    new HtemlWebpackPlugin({
+      template: path.resolve(__dirname, "../public/index.html")
+    })
+  ]
 }

@@ -68,8 +68,8 @@ module.exports = {
               {
                 loader: "babel-loader",
                 options: {//开起缓存，只重新打包修改的文件，没修改的文件不需要打包
-                  cachedirectory: true,
-                  cachecompression:false
+                  cacheDirectory: true,
+                  cacheCompression:false
                 }
               }
             ]
@@ -81,7 +81,9 @@ module.exports = {
   plugins: [
     new EslintWebpackPlugin({
       context: path.resolve(__dirname, "../src"),
-      exclude:'node_modules'
+      exclude: 'node_modules',
+      cache: true,
+      cacheLocation:path.resolve(__filename,"../node_modules/.cache/eslintcache")
     }),
     new HtemlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html")

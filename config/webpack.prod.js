@@ -1,9 +1,12 @@
 const path = require("path");
+const os = require("os");
 const EslintWebpackPlugin = require("eslint-webpack-plugin");
 const HtemlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 
+const threads = os.cpus().length;
 function getStyleLoader(prev){
   return [
     MiniCssExtractPlugin.loader,
@@ -30,7 +33,14 @@ module.exports = {
     clean:true
   },
   mode: "production",
-  devtool:"source-map",
+  devtool: "source-map",
+  optimization: {
+    minimizer: [
+      new TerserWebpackPlugin({
+        parallel:threads
+      })
+    ]
+  },
   module: {
     rules: [
       {
@@ -71,6 +81,12 @@ module.exports = {
             test: /\.(jsx?|tsx?)/i,
             use: [
               {
+                loader: "thread-loader",
+                options: {
+                  works:threads
+                }
+              },
+              {
                 loader: "babel-loader",
                 options: {
                   cacheDirectory: true,
@@ -85,7 +101,9 @@ module.exports = {
   },
   plugins: [
     new EslintWebpackPlugin({
-      context:path.resolve(__dirname,"../src")
+      context: path.resolve(__dirname, "../src"),
+      cache: true,
+      cacheLocation:path.resolve(__filename,"../node_modules/.cache/eslintcache")
     }),
     new HtemlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html")

@@ -29,40 +29,57 @@ module.exports = {
     filename: "static/js/[contenthash].js",
     clean:true
   },
-  mode:"production",
+  mode: "production",
+  devtool:"source-map",
   module: {
     rules: [
       {
-        test: /\.css$/i, //普通打包方式会将css形成的style标签插入html中，这样会形成闪屏的现象，需要将style通过link的形式插入性能会好
-        //excludes: "node_modules",
-        use: getStyleLoader()
-      },
-      {
-        test: /\.less$/,
-        use: getStyleLoader("less-loader")
-      },
-      {
-        test: /\.s[ac]ss$/,
-        use: getStyleLoader("sass-loader")
-      },
-      {
-        test: /\.(jpe?g|png|gif|webp)/,
-        type: "asset",
-        parser: {
-          dataUrlCondition: {
-            maxSize:10*1024 //超过这个配置就会转为base64
+        oneOf: [
+          {
+            test: /\.css$/i, //普通打包方式会将css形成的style标签插入html中，这样会形成闪屏的现象，需要将style通过link的形式插入性能会好
+            //excludes: "node_modules",
+            use: getStyleLoader()
+          },
+          {
+            test: /\.less$/,
+            use: getStyleLoader("less-loader")
+          },
+          {
+            test: /\.s[ac]ss$/,
+            use: getStyleLoader("sass-loader")
+          },
+          {
+            test: /\.(jpe?g|png|gif|webp)/,
+            type: "asset",
+            parser: {
+              dataUrlCondition: {
+                maxSize:10*1024 //超过这个配置就会转为base64
+              }
+            },
+            generator: {
+              filename:"static/img/[contenthash:10][ext]"
+            }
+          },
+          {
+            test: /\.(ttf|woff2?)/,
+            type: "asset/resource",
+            generator: {
+              filename:"static/font/[contenthash:12][ext]"
+            }
+          },
+          {
+            test: /\.(jsx?|tsx?)/i,
+            use: [
+              {
+                loader: "babel-loader",
+                options: {
+                  cacheDirectory: true,
+                  cacheCompression:false
+                }
+              }
+            ]
           }
-        },
-        generator: {
-          filename:"static/img/[contenthash:10][ext]"
-        }
-      },
-      {
-        test: /\.(ttf|woff2?)/,
-        type: "asset/resource",
-        generator: {
-          filename:"static/font/[contenthash:12][ext]"
-        }
+        ]
       }
     ]
   },

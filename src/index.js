@@ -11,6 +11,14 @@ const a = 12;
 const sum = (...rest) => {
   console.log("今天是个好日子");
   console.log(rest);
+  return 1;
 }
 console.log(a);
-sum(1, 2, 3, 4);
+let fn = sum(1, 2, 3, 4);
+fn();
+//对于js模块需要特殊处理
+if (module.hot) {
+  module.hot.accept("./js/index.js", function () {
+    //这里接受一个函数，在文件./js/index.js发生改变时，会回调这里的函数
+  })
+}

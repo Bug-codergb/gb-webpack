@@ -1,6 +1,7 @@
 const path = require("path");
 const EslintWebpackPlugin = require("eslint-webpack-plugin");
 const HtemlWebpackPlugin = require("html-webpack-plugin");
+//const PluginTransformRuntime = require("@babel/plugin-transform-runtime");
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -70,7 +71,8 @@ module.exports = {
                 options: {//开起缓存，只重新打包修改的文件，没修改的文件不需要打包
                   cacheDirectory: true,
                   cacheCompression:false
-                }
+                },
+                plugins: ["@babel/plugin-transform-runtime"]
               }
             ]
           }

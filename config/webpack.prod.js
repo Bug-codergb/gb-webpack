@@ -91,7 +91,10 @@ module.exports = {
                 options: {
                   cacheDirectory: true,
                   cacheCompression:false
-                }
+                },
+                plugins: [
+                  "@babel/plugin-transform-runtime"
+                ]
               }
             ]
           }

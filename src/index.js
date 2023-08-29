@@ -11,7 +11,7 @@ const a = 12;
 const sum = (...rest) => {
   console.log("今天是个好日子");
   console.log(rest);
-  return 1;
+  return ()=>{};
 }
 console.log(a);
 let fn = sum(1, 2, 3, 4);

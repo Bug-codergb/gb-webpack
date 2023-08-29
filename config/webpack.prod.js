@@ -1,10 +1,20 @@
 const path = require("path");
+const webpack = require("webpack");
 const os = require("os");
 const EslintWebpackPlugin = require("eslint-webpack-plugin");
 const HtemlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+
+const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
+
+const CompressionPlugin = require("compression-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
+const { ProvidePlugin } = require("webpack");
+const StylelintPlugin = require('stylelint-webpack-plugin');
 
 const threads = os.cpus().length;
 function getStyleLoader(prev){
@@ -30,7 +40,11 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "../dist"),
     filename: "static/js/[contenthash].js",
+    chunkFilename:"static/js/[name].[chunkhash:6].chunk.js",
     clean:true
+  },
+  externals: {
+    lodash:"_"
   },
   mode: "production",
   devtool: "source-map",
@@ -38,7 +52,8 @@ module.exports = {
     minimizer: [
       new TerserWebpackPlugin({
         parallel:threads
-      })
+      }),
+      new HtmlMinimizerPlugin()
     ]
   },
   module: {
@@ -92,9 +107,7 @@ module.exports = {
                   cacheDirectory: true,
                   cacheCompression:false
                 },
-                plugins: [
-                  "@babel/plugin-transform-runtime"
-                ]
+               
               }
             ]
           }
@@ -112,8 +125,22 @@ module.exports = {
       template: path.resolve(__dirname, "../public/index.html")
     }),
     new MiniCssExtractPlugin({
-      filename:"static/css/[contenthash].css"
+      filename:"static/css/[chunkhash].css"
     }),
-    new CssMinimizerPlugin()
+    //压缩css
+    new CssMinimizerPlugin(),
+    new ProvidePlugin({
+      axios:"axios"
+    }),
+    new CompressionPlugin(),//gzip压缩
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "public/jquery",
+          to:"jquery"
+        }
+      ]
+    }),
+    new webpack.ProgressPlugin({})
   ]
 }

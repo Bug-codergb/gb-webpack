@@ -1,19 +1,7 @@
 const webpack = require("webpack");
-const { 
-  rootPath,
-  appSrc,
-  appBuild
-} = require("../config/paths");
-let obj = {
-  entry: appSrc,
-  output: {
-    filename: "bundle.js",
-    path: appBuild,
-    clean:true
-  },
-  mode:"production"
-}
-const compiler = webpack(obj);
+const factory = require("../config/webpack.config");
+const config = factory("production");
+const compiler = webpack(config);
 compiler.run(() => {
   
 })

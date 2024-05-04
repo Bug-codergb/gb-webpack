@@ -1,9 +1,0 @@
-.content{
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-}
-/*
-  采用命令行工具 postcss-cli npx postcss --use prefixer -o ./src/css/result.css ./src/css/preficer.css
-*/
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInByZWZpeGVyLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHlCQUFpQjtLQUFqQixzQkFBaUI7VUFBakIsaUJBQWlCO0FBQ25CIiwiZmlsZSI6InJlc3VsdC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGVudHtcbiAgdXNlci1zZWxlY3Q6IG5vbmU7XG59Il19 */

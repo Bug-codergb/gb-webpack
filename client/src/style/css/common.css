@@ -1,0 +1,7 @@
+.container{
+  border-radius: 50%;
+  box-shadow: 0 0 10px skyblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

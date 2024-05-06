@@ -1,11 +1,12 @@
-function createElement(shape,className="box") {
+function createElement(shape,className="box",str="hello webpack") {
   const dom = document.createElement(shape);
   setStyle(dom, className);
   let text = document.createElement("span");
-  text.innerHTML = "hello webpack";
+  text.innerHTML = str;
   text.classList = ['label']
   dom.appendChild(text);
   document.body.appendChild(dom)  
+  return dom;
 }
 async function setStyle(dom,className) {
   dom.className = className;

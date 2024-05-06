@@ -1,5 +1,7 @@
 const path = require("path");
+const { envConfigPath } = require("./dotenv")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const DotenvWebpack = require('dotenv-webpack');
 const {
   appBuild,
   appSrc,
@@ -13,7 +15,8 @@ module.exports = function (env) {
       filename: "static/js/[name].[contenthash:8].js",
       chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
       assetModuleFilename: 'static/media/[name].[hash][ext]',
-      clean:true
+      clean: true,
+      publicPath:""
     },
     mode: 'development',
     module: {
@@ -88,7 +91,10 @@ module.exports = function (env) {
       new HtmlWebpackPlugin({
         template: appHtml,
         title:"webpack-next"
-      })
+      }),
+      new DotenvWebpack({
+        path: envConfigPath[process.env.CURRENT_ENV] // 根据环境配置文件路径
+      }),
     ]
   }
 }

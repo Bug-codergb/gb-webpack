@@ -12,10 +12,10 @@ const devServer = new WebpackDevServer(
   {
     open: true,
     port: 3000,
-    /*static: {
+    static: {
       directory: appHtml,
       publicPath:"/"
-    },*/
+    },
     client: {
       overlay: false,
     },

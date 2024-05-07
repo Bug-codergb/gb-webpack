@@ -5,15 +5,22 @@ const GbWebpackPlugin = require("./gb-webpack-plugin")
 const { VueLoaderPlugin } = require('vue-loader')
 const HtmlTagsPlugin =require("html-webpack-tags-plugin");
 const { envConfigPath } = require("./dotenv")
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DotenvWebpack = require('dotenv-webpack');
 const {
   appBuild,
   appSrc,
   appHtml
  } = require("./paths")
- const { entries } = require("./aliases");
+const { entries } = require("./aliases");
+
+const pkg = require("../package.json");
+const appInfo = {
+  dependencies: Object.assign(pkg.dependencies,pkg.devDependencies),
+}
+
 module.exports = function (env) {
+  const isDevelopment = env === "development";
+  const isProduction = env === "production";
   return {
     entry: appSrc,
     output: {
@@ -22,7 +29,7 @@ module.exports = function (env) {
       chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
       assetModuleFilename: 'static/media/[name].[hash][ext]',
       clean: {
-        keep: /dll\//, // 保留 'ignored/dir' 下的静态资源
+        keep: /dll\//, // 保留 'dll文件' 下的静态资源
       },
       publicPath:"/"
     },
@@ -32,10 +39,10 @@ module.exports = function (env) {
       alias:entries,
       extensions: ['.js', '.json', '.wasm'],
     },
-    // cache: {
-    //   type: 'filesystem',
-    //   allowCollectingMemory: true,
-    // },
+    cache: {
+       type: 'filesystem',
+       allowCollectingMemory: true,
+     },
     /*cache:{
       type:"filesystem",
     },*/
@@ -121,18 +128,21 @@ module.exports = function (env) {
       }),
       new VueLoaderPlugin(),
       new GbWebpackPlugin(),
-      new webpack.DllReferencePlugin({
+      isProduction && new webpack.DllReferencePlugin({
         context: process.cwd(),
         manifest: path.resolve(process.cwd(),'build/dll/vue.manifest.json')
       }),
-      new HtmlTagsPlugin({
+      isProduction && new HtmlTagsPlugin({
         append: false, // 在生成资源后插入
         publicPath: "/", // 使用公共路径
         tags: ["dll/vue.dll.js"] // 资源路径
       }),
-       new DotenvWebpack({
+      new DotenvWebpack({
         path: envConfigPath[process.env.CURRENT_ENV] // 根据环境配置文件路径
       }),
+      new webpack.DefinePlugin({
+        __APP_INFO__:JSON.stringify(appInfo)
+      }) 
     ]
   }
 }

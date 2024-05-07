@@ -4,10 +4,8 @@ const factory = require("../config/webpack.config");
 const {appHtml } = require("../config/paths")
 const config = factory("development");
 const { createProxy } = require("../config/createProxy");
-
 const compiler = webpack(config);
 
-console.log()
 const devServer = new WebpackDevServer(
   {
     open: true,

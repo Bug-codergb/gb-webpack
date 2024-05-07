@@ -1,4 +1,9 @@
 const path = require("path");
+const webpack = require("webpack")
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const GbWebpackPlugin = require("./gb-webpack-plugin")
+const { VueLoaderPlugin } = require('vue-loader')
+const HtmlTagsPlugin =require("html-webpack-tags-plugin");
 const { envConfigPath } = require("./dotenv")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DotenvWebpack = require('dotenv-webpack');
@@ -7,6 +12,7 @@ const {
   appSrc,
   appHtml
  } = require("./paths")
+ const { entries } = require("./aliases");
 module.exports = function (env) {
   return {
     entry: appSrc,
@@ -15,12 +21,33 @@ module.exports = function (env) {
       filename: "static/js/[name].[contenthash:8].js",
       chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
       assetModuleFilename: 'static/media/[name].[hash][ext]',
-      clean: true,
-      publicPath:""
+      clean: {
+        keep: /dll\//, // 保留 'ignored/dir' 下的静态资源
+      },
+      publicPath:"/"
     },
     mode: 'development',
+    devtool:'cheap-module-source-map',
+    resolve:{
+      alias:entries,
+      extensions: ['.js', '.json', '.wasm'],
+    },
+    // cache: {
+    //   type: 'filesystem',
+    //   allowCollectingMemory: true,
+    // },
+    /*cache:{
+      type:"filesystem",
+    },*/
+    externals: {
+      /*jquery: 'jQuery',*/
+    },
     module: {
       rules: [
+        {
+          test: /\.vue$/,
+          use: 'vue-loader',
+        },
         {
           test: /\.css$/,
           include: [
@@ -92,7 +119,18 @@ module.exports = function (env) {
         template: appHtml,
         title:"webpack-next"
       }),
-      new DotenvWebpack({
+      new VueLoaderPlugin(),
+      new GbWebpackPlugin(),
+      new webpack.DllReferencePlugin({
+        context: process.cwd(),
+        manifest: path.resolve(process.cwd(),'build/dll/vue.manifest.json')
+      }),
+      new HtmlTagsPlugin({
+        append: false, // 在生成资源后插入
+        publicPath: "/", // 使用公共路径
+        tags: ["dll/vue.dll.js"] // 资源路径
+      }),
+       new DotenvWebpack({
         path: envConfigPath[process.env.CURRENT_ENV] // 根据环境配置文件路径
       }),
     ]

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>我是vue组件{{ count }}</div>
+    <div>我是vue组件{{ count }}------ {{ time }}</div>
     <button @click="add">add</button>
     <ul class="info">
       <li v-for="(value,key) in appInfo.dependencies">"{{ key }}":"{{ value }}"</li>
@@ -18,6 +18,10 @@ const add=()=>{
   console.log(1212)
 }
 const appInfo = __APP_INFO__;
+const time = ref(moment().format("yyyy-MM-DD HH:mm:ss"))
+setInterval(() => {
+  time.value = moment().format("yyyy-MM-DD HH:mm:ss")
+},1000)
 </script>
 <style lang="less">
   .info{

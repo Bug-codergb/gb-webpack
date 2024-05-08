@@ -56,6 +56,13 @@ const root = createElement("div", {
     },
     className: "item",
     
+  }),
+  createElement("div", {
+    style: {
+      width: '200px',
+      height:"100%"
+    },
+    className: "container",
   })
 ])
 document.body.appendChild(root);

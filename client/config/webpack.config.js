@@ -6,6 +6,8 @@ const { VueLoaderPlugin } = require('vue-loader')
 const HtmlTagsPlugin =require("html-webpack-tags-plugin");
 const { envConfigPath } = require("./dotenv")
 const DotenvWebpack = require('dotenv-webpack');
+
+const CopyPlugin = require('copy-webpack-plugin');
 const {
   appBuild,
   appSrc,
@@ -17,6 +19,7 @@ const pkg = require("../package.json");
 const appInfo = {
   dependencies: Object.assign(pkg.dependencies,pkg.devDependencies),
 }
+const rootPath = process.cwd();
 
 module.exports = function (env) {
   const isDevelopment = env === "development";
@@ -43,9 +46,6 @@ module.exports = function (env) {
        type: 'filesystem',
        allowCollectingMemory: true,
      },
-    /*cache:{
-      type:"filesystem",
-    },*/
     externals: {
       /*jquery: 'jQuery',*/
     },
@@ -147,7 +147,27 @@ module.exports = function (env) {
       }),
       new webpack.DefinePlugin({
         __APP_INFO__:JSON.stringify(appInfo)
-      }) 
+      }),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(rootPath, "./public/"),
+            to: path.resolve(rootPath, "./build/"),
+            toType:"dir",//"template",//template所有文件
+            globOptions: {
+              ignore: [
+                "**/index.html"
+              ]
+            }
+          },
+          {
+            from: path.resolve(rootPath, "./src/common"),
+            to: path.resolve(rootPath, "./build/guobin"),
+            toType:"dir",
+          }
+        ],
+        
+      }),
     ]
   }
 }

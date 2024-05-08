@@ -5,11 +5,13 @@
     <ul class="info">
       <li v-for="(value,key) in appInfo.dependencies">"{{ key }}":"{{ value }}"</li>
     </ul>
+    <Home/>
     <hr/>
   </div>
 </template>
 <script setup>
-import {ref} from "vue";
+import { ref } from "vue";
+import Home  from "./components/Home.vue";
 const count = ref(100)
 const add=()=>{
   count.value = count.value+20

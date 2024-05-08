@@ -4,7 +4,6 @@ class GbWebpackPlugin {
   apply(compiler) {
     const rootPath = process.cwd();
     const pkg = require(`${rootPath}/package.json`);
-    
     compiler.hooks.done.tap("GbWebpackPlugin", () => {
       const rootPath = path.resolve(process.cwd(), "./build");
       fs.access(rootPath, (err) => {

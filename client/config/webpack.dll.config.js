@@ -8,7 +8,10 @@ module.exports={
   output:{
     filename:'[name].dll.js',
     path:path.resolve(process.cwd(),"./build/dll"),
-    library:'[name]_dll_[hash]'
+    library: '[name]_dll_[hash]',
+    clean: {
+      keep: /(index.html|version.json|static\/)/, 
+    }
   },
   plugins:[
     new webpack.DllPlugin({

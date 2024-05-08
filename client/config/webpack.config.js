@@ -124,7 +124,12 @@ module.exports = function (env) {
     plugins: [
       new HtmlWebpackPlugin({
         template: appHtml,
-        title:"webpack-next"
+        title: "webpack-next",
+        templateParameters: {
+          host: process.env.SERVER_HOST,
+          port: process.env.SERVER_PORT,
+          version:pkg.version
+        }
       }),
       new VueLoaderPlugin(),
       new GbWebpackPlugin(),

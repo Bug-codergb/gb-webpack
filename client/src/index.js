@@ -59,4 +59,5 @@ const root = createElement("div", {
   })
 ])
 document.body.appendChild(root);
+console.log(1)
 

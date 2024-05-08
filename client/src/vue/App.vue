@@ -12,7 +12,7 @@
 import {ref} from "vue";
 const count = ref(100)
 const add=()=>{
-  count.value = count.value+1
+  count.value = count.value+20
   console.log(1212)
 }
 const appInfo = __APP_INFO__;

@@ -33,10 +33,20 @@
   },
   "devDependencies": {
     "css-minimizer-webpack-plugin": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-webpack-plugin": "^4.1.0",
+    "globals": "^15.1.0",
     "mini-css-extract-plugin": "^2.9.0",
     "sass": "^1.76.0",
     "sass-loader": "^14.2.1",
     "terser-webpack-plugin": "^5.3.10",
     "webpack": "^5.91.0"
+  },
+  "engines": {
+    "node": ">=19.19.0"
   }
 }

@@ -1,16 +1,19 @@
 const path = require("path");
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 const GbWebpackPlugin = require("./gb-webpack-plugin");
+
+const { envConfigPath } = require("./dotenv");
+
 const { VueLoaderPlugin } = require("vue-loader");
 const HtmlTagsPlugin = require("html-webpack-tags-plugin");
-const { envConfigPath } = require("./dotenv");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DotenvWebpack = require("dotenv-webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const { appBuild, appSrc, appHtml } = require("./paths");
 const { entries } = require("./aliases");
@@ -36,8 +39,8 @@ module.exports = function (env) {
       },
       publicPath: "/",
     },
-    mode: "development",
-    devtool: "source-map",
+    mode: isDevelopment ? "development" : "production",
+    devtool:isDevelopment ? "source-map" : undefined,
     resolve: {
       alias: entries,
       extensions: [".js", ".json", ".wasm"],
@@ -187,7 +190,6 @@ module.exports = function (env) {
       }),
       new webpack.ProvidePlugin({
         moment: "moment",
-        // ...
       }),
       new MiniCssExtractPlugin({
         filename: "static/css/[name].[contenthash:8].css",
@@ -201,6 +203,12 @@ module.exports = function (env) {
         dependenciesCount: 10000,
         percentBy: null,
       }),
+      new ESLintPlugin({
+        context: path.resolve(rootPath, "./src"),
+        extensions: ['.js'],
+        failOnError: true,
+        fix:false
+      })
     ],
   };
 };

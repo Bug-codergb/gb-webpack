@@ -1,70 +1,69 @@
-//import $ from 'jquery';
-import App from "./vue/App.vue"
-import axios from "axios";
-import { createElement } from "./js/index";
-import {createApp} from "vue";
-import "./style/css/common.css";
-import "./style/less/common.less";
-import "./style/scss/common.sass"
+// import $ from 'jquery';
+import App from './vue/App.vue'
+import axios from 'axios'
+import { createElement } from './js/index'
+import { createApp } from 'vue'
+import './style/css/common.css'
+import './style/less/common.less'
+import './style/scss/common.sass'
 
-import bgc from "./assets/img/anni.jpeg"
+import bgc from './assets/img/anni.jpeg'
 
-const app = createApp(App);
-app.mount("#app");
+const app = createApp(App)
+app.mount('#app')
 
-const root = createElement("div", {
+const root = createElement('div', {
   style: {
     width: '100%',
-    height: "200px",
-    backgroundColor: "pink",
-    display:"flex"
+    height: '200px',
+    backgroundColor: 'pink',
+    display: 'flex'
   },
-  className:"root"
+  className: 'root'
 }, [
-  createElement("div", {
+  createElement('div', {
     style: {
       width: '200px',
-      height:"100%"
+      height: '100%'
     },
-    className:"item"
+    className: 'item'
   }),
-  createElement("div", {
+  createElement('div', {
     style: {
       width: '200px',
-      height: "100%",
+      height: '100%',
       'background-image': `url(${bgc})`,
-      'background-size':'contain'
+      'background-size': 'contain'
     },
-    className: "item",
+    className: 'item',
     onClick: () => {
       axios({
-        baseURL:"http://localhost:3000/api",
-        method: "get",
-        url: `/list`,
+        baseURL: 'http://localhost:3000/api',
+        method: 'get',
+        url: '/list',
         params: {
-          id:12
+          id: 12
         }
       }).then((res) => {
-        console.log(res.data);
+        console.log(res.data)
       })
     }
   }),
-  createElement("div", {
+  createElement('div', {
     style: {
       width: '200px',
-      height:"100%"
+      height: '100%'
     },
-    className: "item",
-    
+    className: 'item'
+
   }),
-  createElement("div", {
+  createElement('div', {
     style: {
       width: '200px',
-      height:"100%"
+      height: '100%'
     },
-    className: "container",
+    className: 'container'
   })
 ])
-document.body.appendChild(root);
+document.body.appendChild(root)
 console.log(1)
-

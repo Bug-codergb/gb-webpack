@@ -22,7 +22,7 @@ const devServer = new WebpackDevServer(
       }
     ],
     client: {
-      overlay: false,
+      overlay: true,
     },
     proxy: createProxy(process.env.PROXY)
   },

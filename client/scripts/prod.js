@@ -6,10 +6,18 @@ const compiler = webpack(config)
 compiler.run((error, stats) => {
   // console.log(stats.hasErrors())
   // console.log(stats.hasWarnings())
-  console.log(stats.toJson({
-    assets: false,
-    hash: false,
+  const result = stats.toJson({
+    all: false,
     errors: true,
-    errorStack: false
-  }))
+    warnings: false
+  })
+
+  if (stats.hasErrors() || stats.hasWarnings()) {
+    console.log(result.errors)
+
+    for (const item of result.errors) {
+      console.log(item.message)
+    }
+    process.exit(1)
+  }
 })

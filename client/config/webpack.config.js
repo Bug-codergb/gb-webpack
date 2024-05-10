@@ -28,6 +28,9 @@ module.exports = function (env) {
   const isDevelopment = env === 'development'
   const isProduction = env === 'production'
   return {
+    // target: ['browserslist'],
+    stats: 'errors-warnings',
+    bail: true,
     entry: appSrc,
     output: {
       path: appBuild,
@@ -206,10 +209,11 @@ module.exports = function (env) {
       }),
       new ESLintPlugin({
         context: path.resolve(rootPath, './src'),
-        extensions: ['.js'],
+        extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
         failOnError: true,
         emitError: true,
-        fix: false
+        fix: false,
+        eslintPath: require.resolve('eslint')
       })
     ]
   }

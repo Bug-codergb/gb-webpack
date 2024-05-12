@@ -30,7 +30,7 @@ module.exports = function (env) {
   return {
     // target: ['browserslist'],
     stats: 'errors-warnings',
-    bail: true,
+    // bail: true,
     entry: appSrc,
     output: {
       path: appBuild,
@@ -75,7 +75,7 @@ module.exports = function (env) {
         })
 
       ],
-      emitOnErrors: true
+      emitOnErrors: false// 出现错误时，是否输出打包资源
     },
     module: {
       rules: [

@@ -159,7 +159,7 @@ module.exports = function (env) {
           host: process.env.SERVER_HOST,
           port: isProduction ? process.env.SERVER_PORT : process.env.CLIENT_PORT,
           version: pkg.version,
-          env: process.env.NODE_ENV
+          cur_env: process.env.NODE_ENV
         }
       }),
       new VueLoaderPlugin(),

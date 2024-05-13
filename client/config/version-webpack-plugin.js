@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const { error } = require('./chalk')
 class VersionWebpackPlugin {
   apply (compiler) {
     const rootPath = process.cwd()
@@ -14,8 +13,7 @@ class VersionWebpackPlugin {
             path.resolve(rootPath, 'version.json'),
             `{"version":"${pkg.version}"}`,
             (err) => {
-              error('1234')
-              error(err.message)
+              
             }
           )
         } else {
@@ -25,12 +23,10 @@ class VersionWebpackPlugin {
                 path.resolve(rootPath, 'version.json'),
                 `{"version":"${pkg.version}"}`,
                 (err) => {
-                  error(err.message)
+                  
                 }
               )
-            } else {
-
-            }
+            } else {}
           })
         }
       })

@@ -8,13 +8,13 @@ checkVersion()
 function build () {
   return new Promise((resolve, reject) => {
     compiler.run((error, stats) => {
-      if (stats.hasErrors() || stats.hasWarnings()) {
+      if (stats.hasErrors()) {
         const result = stats.toJson({
           all: false,
           errors: true,
-          warnings: false
+          warnings: true
         })
-        for (const item of result.errors) {
+        for (const item of result.warnings) {
           console.log(item.message)
         }
         return reject()

@@ -29,6 +29,7 @@ module.exports = {
   rules: {
     "no-console": "off",
     "no-debugger":"off",
-    "no-var":"error",
+    "no-var": "error",
+    "prettier/prettier": "error"
   },
 };

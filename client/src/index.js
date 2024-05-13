@@ -1,15 +1,15 @@
-import App from './vue/App.vue'
-import axios from 'axios'
-import { createElement } from './js/index'
-import { createApp } from 'vue'
-import './style/css/common.css'
-import './style/less/common.less'
-import './style/scss/common.scss'
-import { getContainer } from './js/eslint-test'
-import bgc from './assets/img/anni.jpeg'
+import App from './vue/App.vue';
+import axios from 'axios';
+import { createElement } from './js/index';
+import { createApp } from 'vue';
+import './style/css/common.css';
+import './style/less/common.less';
+import './style/scss/common.scss';
+import { getContainer } from './js/eslint-test';
+import bgc from './assets/img/anni.jpeg';
 
-const app = createApp(App)
-app.mount('#app')
+const app = createApp(App);
+app.mount('#app');
 
 const root = createElement(
   'div',
@@ -46,9 +46,9 @@ const root = createElement(
           params: {
             id: 12
           }
-        }).then((res) => {
+        }).then(res => {
           // console.log(res.data)
-        })
+        });
       }
     }),
     createElement('div', {
@@ -66,6 +66,6 @@ const root = createElement(
       className: 'container'
     })
   ]
-)
-document.body.appendChild(root)
-getContainer()
+);
+document.body.appendChild(root);
+getContainer();

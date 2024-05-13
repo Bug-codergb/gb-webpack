@@ -4,7 +4,10 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ["standard"], // 规则， eslint:recommended推荐，eslint:all全部
+  extends: [
+    "standard",
+    "plugin:prettier/recommended"
+  ], // 规则， eslint:recommended推荐，eslint:all全部
   globals: {
     $: true, // false则说明全局变量不可以修改
   },

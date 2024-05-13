@@ -22,6 +22,4 @@ function createElement (tag, props = {}, children = []) {
   }
   return el
 }
-export {
-  createElement
-}
+export { createElement }

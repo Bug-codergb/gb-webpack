@@ -1,0 +1,17 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint":"explicit" 
+  },
+  "eslint.format.enable": true,
+  "files.autoSave": "onFocusChange",
+  "stylelint.config": null,
+  "stylelint.validate": [
+    "css",
+    "postcss",
+    "less",
+    "scss",
+    "vue",
+    "scss"
+  ]
+}

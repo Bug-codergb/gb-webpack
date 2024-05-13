@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "cross-env CURRENT_ENV=development node scripts/dev.js",
     "build": "cross-env CURRENT_ENV=production node scripts/prod.js",
-    "dll": "webpack --config ./config/webpack.dll.config"
+    "dll": "webpack --config ./config/webpack.dll.config",
+    "lint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@vue/compiler-sfc": "^3.4.26",
+    "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
     "chalk": "^4.0.0",
     "copy-webpack-plugin": "^12.0.2",
@@ -25,6 +27,7 @@
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "moment": "^2.30.1",
+    "postcss": "^8.4.38",
     "style-loader": "^4.0.0",
     "vue": "^3.4.26",
     "vue-loader": "^17.4.2",
@@ -41,8 +44,17 @@
     "eslint-webpack-plugin": "^4.1.0",
     "globals": "^15.1.0",
     "mini-css-extract-plugin": "^2.9.0",
+    "postcss-html": "^1.7.0",
     "sass": "^1.76.0",
     "sass-loader": "^14.2.1",
+    "stylelint": "^16.5.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-recess-order": "^5.0.1",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-webpack-plugin": "^5.0.0",
     "terser-webpack-plugin": "^5.3.10",
     "webpack": "^5.91.0"
   },

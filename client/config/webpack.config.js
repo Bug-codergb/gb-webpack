@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const GbWebpackPlugin = require('./gb-webpack-plugin')
+const VersionWebpackPlugin = require('./version-webpack-plugin')
 
 const { envConfigPath } = require('./dotenv')
 
@@ -14,6 +14,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 
 const { appBuild, appSrc, appHtml } = require('./paths')
 const { entries } = require('./aliases')
@@ -30,7 +31,7 @@ module.exports = function (env) {
   return {
     // target: ['browserslist'],
     stats: 'errors-warnings',
-    // bail: true,
+    bail: true,
     entry: appSrc,
     output: {
       path: appBuild,
@@ -43,7 +44,7 @@ module.exports = function (env) {
       publicPath: '/'
     },
     mode: isDevelopment ? 'development' : 'production',
-    devtool: isDevelopment ? 'source-map' : undefined,
+    devtool: isDevelopment ? 'source-map' : false,
     resolve: {
       alias: entries,
       extensions: ['.js', '.json', '.wasm']
@@ -52,11 +53,15 @@ module.exports = function (env) {
       type: 'filesystem',
       allowCollectingMemory: true
     },
+    externalsType: 'script',
     externals: {
-      /* jquery: 'jQuery', */
+      jquery: [
+        'https://code.jquery.com/jquery-3.7.1.min.js',
+        'jQuery'
+      ]
     },
     optimization: {
-      minimize: true,
+      minimize: isProduction,
       minimizer: [
         new CssMinimizerPlugin(),
         new TerserPlugin({
@@ -73,8 +78,8 @@ module.exports = function (env) {
             }
           }
         })
-
       ],
+
       emitOnErrors: false// 出现错误时，是否输出打包资源
     },
     module: {
@@ -152,12 +157,13 @@ module.exports = function (env) {
         title: 'webpack-next',
         templateParameters: {
           host: process.env.SERVER_HOST,
-          port: process.env.SERVER_PORT,
-          version: pkg.version
+          port: isProduction ? process.env.SERVER_PORT : process.env.CLIENT_PORT,
+          version: pkg.version,
+          env: process.env.NODE_ENV
         }
       }),
       new VueLoaderPlugin(),
-      new GbWebpackPlugin(),
+      new VersionWebpackPlugin(),
       isProduction &&
         new webpack.DllReferencePlugin({
           context: process.cwd(),
@@ -212,8 +218,12 @@ module.exports = function (env) {
         extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
         failOnError: true,
         emitError: true,
-        fix: false,
+        fix: true,
         eslintPath: require.resolve('eslint')
+      }),
+      new StylelintPlugin({
+        context: path.resolve(rootPath, './src'),
+        fix: true
       })
     ]
   }

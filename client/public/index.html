@@ -9,7 +9,7 @@
   <body>
     <div id="app"></div>
     <script>
-      /*const isProduction = "<%= cur_env%>" === "production";
+      const isProduction = "<%= cur_env%>" === "production";
       if (isProduction) {
         setInterval(() => {
           fetch("http://<%= host%>:<%= port%>/version.json")
@@ -27,7 +27,7 @@
               localStorage.setItem("version", res.version);
             });
         }, 5000);
-      }*/
+      }
     </script>
   </body>
 </html>

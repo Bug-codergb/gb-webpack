@@ -135,6 +135,9 @@ module.exports = function (env) {
               loader: 'css-loader'
             },
             {
+              loader:"postcss-loader"
+            },
+            {
               loader: 'less-loader'
             }
           ]
@@ -147,6 +150,7 @@ module.exports = function (env) {
             isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
             // 将 CSS 转化成 CommonJS 模块
             'css-loader',
+            'postcss-loader',
             // 将 Sass 编译成 CSS
             'sass-loader'
           ]

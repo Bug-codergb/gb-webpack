@@ -112,6 +112,9 @@ module.exports = function (env) {
             }, */
             {
               loader: 'css-loader'
+            },
+            {
+              loader:"postcss-loader"
             }
           ]
         },

@@ -1,6 +1,6 @@
 const path = require("path")
 const fs = require("fs");
-const sourcePath = path.resolve(process.cwd(), "./client/build/");
+const sourcePath = path.resolve(process.cwd(), "./gb-webpack-client/build/");
 const targetPath = path.resolve(process.cwd(), "./server/static/");
 function deleteFile(folderPath, isRoot) {
   const dirs = fs.readdirSync(folderPath);

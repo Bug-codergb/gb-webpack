@@ -92,7 +92,7 @@ module.exports = function (env) {
               loader:"babel-loader"
             }
           ]
-        }
+        },
         {
           test: /\.vue$/,
           use: 'vue-loader'
@@ -104,12 +104,6 @@ module.exports = function (env) {
             {
               loader: isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader
             },
-            /* {
-              loader: "style-loader",
-              options: {
-                injectType:"autoStyleTag"
-              }
-            }, */
             {
               loader: 'css-loader'
             },

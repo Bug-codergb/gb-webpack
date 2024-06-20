@@ -35,14 +35,12 @@ const root = createElement(
         width: "200px",
         height: "100%",
         "background-image": `url(${bgc})`,
-        "background-size":
-          "contain"
+        "background-size": "contain"
       },
       className: "item",
       onClick: () => {
         axios({
-          baseURL:
-            "http://localhost:3000/api",
+          baseURL: "http://localhost:3000/api",
           method: "get",
           url: "/list",
           params: {
@@ -69,7 +67,12 @@ const root = createElement(
     })
   ]
 );
-document.body.appendChild(
-  root
-);
+document.body.appendChild(root);
 getContainer();
+new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(true);
+  }, 2000);
+}).then(() => {
+  console.log(1);
+});

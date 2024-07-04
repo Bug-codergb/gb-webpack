@@ -12,7 +12,7 @@ checkVersion()
 const devServer = new WebpackDevServer(
   {
     open: true,
-    port: 3001,
+    port: 3000,
     static: [
       {
         directory: path.resolve(rootPath, './public'),

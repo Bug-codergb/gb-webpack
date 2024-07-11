@@ -1,62 +1,62 @@
-import { defineConfig, loadEnv } from "vite";
-import path from "path";
+import { defineConfig, loadEnv } from 'vite'
+import path from 'path'
 import react from '@vitejs/plugin-react'
-import eslintPlugin from "vite-plugin-eslint";
-import { 
+import eslintPlugin from 'vite-plugin-eslint'
+import {
   rootPath
-} from "./config/paths"
-import pkg from "./package.json";
-export default defineConfig(({command,mode}) => {
-  const isDevelopment = mode === "development";
-  const isProduction = mode === "production";
+} from './config/paths'
+import pkg from './package.json'
+export default defineConfig(({ command, mode }) => {
+  const isDevelopment = mode === 'development'
+  const isProduction = mode === 'production'
 
-  const env = loadEnv(mode,rootPath);
-  console.log(env);
+  const env = loadEnv(mode, rootPath)
+  console.log(env)
   return {
     root: rootPath,
-    base: "/",
+    base: '/',
     mode,
     define: {
-      pkg: JSON.stringify(pkg),
-      
+      pkg: JSON.stringify(pkg)
+
     },
-    publicDir: "static",
-    cacheDir: "node_modules/.vite",
+    publicDir: 'static',
+    cacheDir: 'node_modules/.vite',
     resolve: {
       alias: {
-        "@":path.resolve(rootPath,"./src")
+        '@': path.resolve(rootPath, './src')
       },
-      extensions:[".jsx",".js","ts",".tsx"]
+      extensions: ['.jsx', '.js', 'ts', '.tsx']
     },
     server: {
       port: env.VITE_CLIENT_PORT,
       strictPort: false,
       open: true,
       proxy: {
-        "/api": {
+        '/api': {
           target: `http://localhost:${env.VITE_SERVER_PORT}`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path) => path.replace(/^\/api/, '')
         }
       },
       hmr: {
-        overlay:true
+        overlay: true
       }
     },
     build: {
-      target: "modules",
-      outDir: "dist",
-      assetsDir: "assets",
+      target: 'modules',
+      outDir: 'dist',
+      assetsDir: 'assets',
       assetsInlineLimit: 2048,
       cssCodeSplit: true,
-      sourcemap: isDevelopment ? true : false,
+      sourcemap: !!isDevelopment,
       minify: 'esbuild',
       copyPublicDir: true,
       rollupOptions: {
         output: {
-          chunkFileNames: "js/[name]-[hash].js",
-          entryFileNames: "js/[name]-[hash].js",
-          assetFileNames: "media/[name]-[hash].[ext]"
+          chunkFileNames: 'js/[name]-[hash].js',
+          entryFileNames: 'js/[name]-[hash].js',
+          assetFileNames: 'media/[name]-[hash].[ext]'
         }
       }
     },

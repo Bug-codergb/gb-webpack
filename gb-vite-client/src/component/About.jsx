@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
-import img1 from '@/assets/img/1.jpeg'
-import img2 from '@/assets/img/2.avif'
+import img1 from '@/assets/img/1.jpeg?url'
+import img2 from '@/assets/img/2.avif?url'
 import { AboutWrapper } from './style'
 const About = () => {
   return <AboutWrapper>

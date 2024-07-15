@@ -2,9 +2,10 @@ module.exports = {
   root:true,
   extends: [
     "stylelint-config-standard",
-    "stylelint-config-styled-components",
+    "stylelint-config-html/vue",
     "stylelint-config-recess-order",
-    "stylelint-config-standard-scss"
+    "stylelint-config-standard-scss",
+    "stylelint-config-recommended-vue/scss"
   ],
   rules: {
     "function-url-quotes": "always", // URL 的引号 "always(必须加上引号)"|"never(没有引号)"

@@ -7,6 +7,7 @@ justify-content: center;
   align-items: center;
 
   display: flex;
+  user-select: none;
 `
 export {
   AboutWrapper

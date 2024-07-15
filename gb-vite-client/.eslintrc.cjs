@@ -1,3 +1,4 @@
+const pluginVue = require('eslint-plugin-vue')
 module.exports = {
   env: {
     browser: true,
@@ -5,7 +6,8 @@ module.exports = {
   },
   extends: [
     'standard',
-    'plugin:react/recommended'
+    'plugin:react/recommended',
+    'plugin:vue/vue3-recommended'
   ],
   overrides: [
     {
@@ -25,6 +27,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    'no-var': 'error'
+    'no-var': 'error',
+    'vue/multi-word-component-names': 'off'
   }
 }
